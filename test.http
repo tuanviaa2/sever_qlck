@@ -1,0 +1,178 @@
+GET http://localhost:3001/
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6InJlc2lkZW50IiwiaWF0IjoxNzAwMDMwODAwLCJleHAiOjMuNjAwMDAwMDAwMDAwMDAwNWUrMjl9.1dSMq4ovAJ-5YJlw06q9r4ZpCc0PjQSMHV_lNtZ7KvY
+###
+//ADMIN LOGIN
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "personal_identification_number": "12312312300",
+  "password": "1"
+}
+
+###
+//REGISTER
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDAwMzA5NDQsImV4cCI6My42MDAwMDAwMDAwMDAwMDA1ZSsyOX0.uJP3YCUyPquaDAaOFOGOdPKBNj_AcbY5xmAxLR52OGM
+
+{
+  "fullName": "Faker",
+  "date_of_birth": "1990-01-01",
+  "phone_number": "123",
+  "personal_identification_number": "admin",
+  "permanent_address": "123 Main St",
+  "gender": "Male",
+  "portrait_url": "https://kenh14cdn.com/203336854389633024/2023/10/21/photo-4-1697895878959243680206.jpg",
+  "email": "john.doe@example.com",
+  "check_in_date": "2023-01-01",
+  "password": "1",
+  "payments": [
+    {
+      "name": "Rent",
+      "amount": "1000",
+      "isPayment": true
+    },
+    {
+      "name": "Utilities",
+      "amount": "200",
+      "isPayment": false
+    }
+  ]
+}
+
+###
+//LOGIN
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "personal_identification_number": "admin",
+  "password": "1"
+}
+
+###
+//UPDATE USER
+PUT http://localhost:3000/user/update/123
+Content-Type: application/json
+
+{
+  "fullName": "Thanh",
+  "phone_number": "987654321",
+  "permanent_address": "456 Updated St",
+  "email": "newemail@example.com",
+  "check_in_date": "2023-02-01",
+  "payments": [
+    {
+      "name": "Updated Rent",
+      "amount": "1200",
+      "isPayment": true
+    },
+    {
+      "name": "Updated Utilities",
+      "amount": "250",
+      "isPayment": true
+    }
+  ],
+  "role": "admin"
+}
+
+
+###
+//DELETE USER
+DELETE http://localhost:3000/user/delete/admin
+
+###
+GET http://localhost:3000/room/getFloor
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6InJlc2lkZW50IiwiaWF0IjoxNzAwMTU3Mjk4LCJleHAiOjMuNjAwMDAwMDAwMDAwMDAwNWUrMjl9.k_fUqJKOY9-eD-iEDhVzuOGOxiF2RxingH0klAZBpLY
+
+
+###
+POST http://localhost:3000/room/addUser
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6InJlc2lkZW50IiwiaWF0IjoxNzAwMTU3Mjk4LCJleHAiOjMuNjAwMDAwMDAwMDAwMDAwNWUrMjl9.k_fUqJKOY9-eD-iEDhVzuOGOxiF2RxingH0klAZBpLY
+
+{
+  "roomName": "T1P1",
+  "residentId": "123"
+}
+
+
+###
+PUT http://localhost:3000/user/addPayment/123
+Content-Type: application/json
+
+{
+  "paymentName": "Tiền điện tháng 10",
+  "amount": "100000"
+}
+
+###
+PUT http://localhost:3000/user/maskIsPayment/123
+Content-Type: application/json
+
+{
+  "paymentId": "6556ff7e7630c29af1aa61d9"
+  
+}
+
+###
+GET  http://localhost:3000/user/12121212121
+Content-Type: application/json
+###
+POST http://localhost:3000/room/addFloor
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6InJlc2lkZW50IiwiaWF0IjoxNzAwMTU3Mjk4LCJleHAiOjMuNjAwMDAwMDAwMDAwMDAwNWUrMjl9.k_fUqJKOY9-eD-iEDhVzuOGOxiF2RxingH0klAZBpLY
+
+{
+  "roomName": "T1P1",
+  "residentId": "123"
+}
+###
+GET  http://localhost:3000/user/12312333456
+Content-Type: application/json
+
+###
+POST  http://localhost:3000/user/addNotification
+Content-Type: application/json
+
+{
+  "content":"Thong bao 1",
+  "residentId":"123",
+  "time":"1990-01-01T00:00:00.000Z"
+}
+
+###
+GET http://localhost:3000/user/notification/123
+Content-Type: application/json
+
+###
+PUT http://localhost:3000/user/readNoti/admin
+Content-Type: application/json
+
+{
+  "notiId":"655751251cc89f04f9b03a45"
+}
+
+###
+POST  http://localhost:3000/user/addFeedBack
+Content-Type: application/json
+
+{
+  "sender":"Thanh1",
+  "image":"https://catscanman.net/wp-content/uploads/2021/09/anh-meo-cute-de-thuong-1.jpg",
+  "content":"Thong bao 1",
+  "residentId":"admin",
+  "time":"1990-01-01T00:00:00.000Z"
+}
+
+
+###
+PATCH http://localhost:3000/user/changePassword/admin
+Content-Type: application/json
+
+{
+  "oldPass":"132",
+  "newPass":"1"
+}
