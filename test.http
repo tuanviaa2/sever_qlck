@@ -1,4 +1,4 @@
-GET http://localhost:3001/
+GET http://127.0.0.1:3000
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6InJlc2lkZW50IiwiaWF0IjoxNzAwMDMwODAwLCJleHAiOjMuNjAwMDAwMDAwMDAwMDAwNWUrMjl9.1dSMq4ovAJ-5YJlw06q9r4ZpCc0PjQSMHV_lNtZ7KvY
 ###
 //ADMIN LOGIN
@@ -9,7 +9,10 @@ Content-Type: application/json
   "personal_identification_number": "12312312300",
   "password": "1"
 }
-
+###
+GET http://localhost:3000/user/get/allResidentsWithPayments
+###
+GET http://localhost:3000/user/get/all
 ###
 //REGISTER
 POST http://localhost:3000/auth/register
@@ -50,7 +53,12 @@ Content-Type: application/json
   "personal_identification_number": "admin",
   "password": "1"
 }
-
+###
+// reset
+PUT http://localhost:3000/user/reset/allResidentsPayments
+###
+//GEt all
+GET http://localhost:3000/user/get/allResidents
 ###
 //UPDATE USER
 PUT http://localhost:3000/user/update/123
@@ -82,10 +90,6 @@ Content-Type: application/json
 //DELETE USER
 DELETE http://localhost:3000/user/delete/admin
 
-###
-GET http://localhost:3000/room/getFloor
-Content-Type: application/json
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6InJlc2lkZW50IiwiaWF0IjoxNzAwMTU3Mjk4LCJleHAiOjMuNjAwMDAwMDAwMDAwMDAwNWUrMjl9.k_fUqJKOY9-eD-iEDhVzuOGOxiF2RxingH0klAZBpLY
 
 
 ###
@@ -95,17 +99,18 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6I
 
 {
   "roomName": "T1P1",
-  "residentId": "123"
+  "residentId": "12312312300"
 }
 
 
 ###
-PUT http://localhost:3000/user/addPayment/123
+PUT http://localhost:3000/user/addPayment/12313212313
 Content-Type: application/json
 
 {
   "paymentName": "Tiền điện tháng 10",
-  "amount": "100000"
+  "amount": "100000",
+  "dueDate":"2022-01-08T05:20:02.825Z"
 }
 
 ###
@@ -118,7 +123,7 @@ Content-Type: application/json
 }
 
 ###
-GET  http://localhost:3000/user/12121212121
+GET  http://localhost:3000/user/65572a3134fbe6bcb89a72b6
 Content-Type: application/json
 ###
 POST http://localhost:3000/room/addFloor
@@ -175,4 +180,29 @@ Content-Type: application/json
 {
   "oldPass":"132",
   "newPass":"1"
+}
+###
+POST http://localhost:3000/room/addFloor
+Content-Type: application/json
+###
+DELETE http://localhost:3000/room/deleteFloor/9
+Content-Type: application/json
+###
+GET http://localhost:3000/room/getFloor
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6InJlc2lkZW50IiwiaWF0IjoxNzAwMTU3Mjk4LCJleHAiOjMuNjAwMDAwMDAwMDAwMDAwNWUrMjl9.k_fUqJKOY9-eD-iEDhVzuOGOxiF2RxingH0klAZBpLY
+###
+POST http://localhost:3000/room/addRoom
+Content-Type: application/json
+
+{
+  "floorId":"659bcbde89f2c9b0ac57421d"
+}
+
+###
+GET http://localhost:3000/room/getRoomsByFloorId/659bcbde89f2c9b0ac57421d
+Content-Type: application/json
+
+{
+  "floorId":"659bcbde89f2c9b0ac57421d"
 }

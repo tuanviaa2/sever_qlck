@@ -1,7 +1,6 @@
 import express from 'express';
 import ResidentInfoModel from "../../model/User.js";
 import FloorModel from '../../model/Floor.js';
-import e from 'express';
 
 const userRouter = express.Router();
 
@@ -71,7 +70,45 @@ userRouter.get('/:personal_identification_number', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+userRouter.get('/get/allResidents', async (req, res) => {
+    try {
+        const allResidents = await ResidentInfoModel.find({}, { fullName: 1, personal_identification_number: 1, _id: 0 });
 
+        res.status(200).json({ message: 'Tất cả cư dân được lấy thành công', data: { residents: allResidents } });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Lỗi Server Nội Bộ' });
+    }
+});
+userRouter.get('/get/all', async (req, res) => {
+    try {
+        const allResidents = await ResidentInfoModel.find();
+        res.status(200).json({ message: 'Tất cả cư dân được lấy thành công', data: { residents: allResidents } });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Lỗi Server Nội Bộ' });
+    }
+});
+userRouter.get('/get/allResidentsWithPayments', async (req, res) => {
+    try {
+        const allResidents = await ResidentInfoModel.find({}, { fullName: 1, _id: 1, payments: 1 });
+
+        res.status(200).json({ message: 'Tất cả cư dân được lấy thành công', data: { residents: allResidents } });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Lỗi Server Nội Bộ' });
+    }
+});
+userRouter.put('/reset/allResidentsPayments', async (req, res) => {
+    try {
+        await ResidentInfoModel.updateMany({}, { payments: [] });
+
+        res.status(200).json({ message: 'Đã đặt lại tất cả khoản thanh toán của cư dân thành công' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Lỗi Server Nội Bộ' });
+    }
+});
 userRouter.delete('/delete/:personal_identification_number', async (req, res) => {
     try {
         const { personal_identification_number } = req.params;
@@ -106,15 +143,17 @@ userRouter.delete('/delete/:personal_identification_number', async (req, res) =>
 userRouter.put('/addPayment/:personal_identification_number', async (req, res) => {
     try {
         const { personal_identification_number } = req.params;
-        const { paymentName, amount } = req.body
+        const { paymentName, amount,dueDate } = req.body
         const user = await ResidentInfoModel.findOne({ personal_identification_number });
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
+        console.log(dueDate)
         user.payments.push({
             name: paymentName,
             amount,
-            isPayment: false
+            isPayment: false,
+            dueDate
         });
 
         await user.save();
@@ -168,12 +207,12 @@ userRouter.get('', async (req, res) => {
             return res.status(200).json({ message: 'User updated successfully', data: { users: existingUser } });
 
         }
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error 2' });
 
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error 2' });
     }
 });
 

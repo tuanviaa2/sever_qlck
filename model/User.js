@@ -6,9 +6,9 @@ const billSchema = new Schema({
     name: { type: String, required: true, default: "Other" },
     amount: { type: String, required: true },
     isPayment: { type: Boolean, required: true, default: false },
-
-});
-const notificationSchema = new Schema({
+    dueDate: { type: Date ,default:'2024-01-07T16:51:44.707Z'}, // Thêm trường ngày đến hạn
+}, { timestamps: true });
+const notificationSchema = new Schema({ 
     sender: { type: String},
     content: { type: String, required: true },
     isReading: { type: Boolean, default: false },
